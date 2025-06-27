@@ -36,11 +36,12 @@ public class DatabaseConduit {
     }
 
     public float queryUserBalance(Long userId) {
-        UserRecord userRecord = userQuery(userId);
-        if (userRecord == null) {
-            return 0;
-        } else {
+        try {
+            UserRecord userRecord = userQuery(userId);
             return userRecord.getBalance();
+        } catch (RuntimeException e) {
+            // User not found, return 0 balance
+            return 0.0f;
         }
     }
     
