@@ -1,0 +1,55 @@
+package com.jpmc.midascore.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class TransactionRecord{
+
+    @Id
+    @GeneratedValue()
+    private Long id;
+
+    @ManyToOne
+    private UserRecord sender;
+    
+    @ManyToOne
+    private UserRecord recipient;
+
+    @Column(nullable = false)
+    private float amount;
+
+    protected TransactionRecord() {
+    }
+
+    public TransactionRecord(UserRecord sender, UserRecord recipient, float amount) {
+        this.sender = sender;
+        this.recipient = recipient;
+        this.amount = amount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserRecord getSender() {
+        return sender;
+    }
+
+    public UserRecord getRecipient() {
+        return recipient;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    @Override
+    public String toString() {
+        return "TransactionRecord {sender=" + sender.toString() + ", recipient=" + recipient.toString() + ", amount=" + amount +"}";
+    }
+}
+

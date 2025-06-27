@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
 
+import com.jpmc.midascore.component.DatabaseConduit;
+import com.jpmc.midascore.entity.UserRecord;
+
 @SpringBootTest
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
@@ -23,6 +26,9 @@ public class TaskThreeTests {
     @Autowired
     private FileLoader fileLoader;
 
+    @Autowired
+    private DatabaseConduit databaseConduit;
+
     @Test
     void task_three_verifier() throws InterruptedException {
         userPopulator.populate();
@@ -32,6 +38,9 @@ public class TaskThreeTests {
         }
         Thread.sleep(2000);
 
+        // Check waldorf's balance after all transactions are processed
+        UserRecord waldorf = databaseConduit.userQueryByName("waldorf");
+        logger.info("WALDORF'S FINAL BALANCE: {}", waldorf.getBalance());
 
         logger.info("----------------------------------------------------------");
         logger.info("----------------------------------------------------------");
