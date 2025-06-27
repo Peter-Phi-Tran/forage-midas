@@ -17,3 +17,4 @@ server:
 general:
   kafka-topic: "transaction"
   incentive-api-url: "http://localhost:8080/incentive"
+  

@@ -40,7 +40,7 @@ public class TaskThreeTests {
 
         // Check waldorf's balance after all transactions are processed
         UserRecord waldorf = databaseConduit.userQueryByName("waldorf");
-        logger.info("WALDORF'S FINAL BALANCE: {}", waldorf.getBalance());
+        logger.info("Waldorfs Final balance: {}", waldorf.getBalance());
 
         logger.info("----------------------------------------------------------");
         logger.info("----------------------------------------------------------");

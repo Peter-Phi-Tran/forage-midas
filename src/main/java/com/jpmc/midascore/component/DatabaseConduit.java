@@ -26,12 +26,12 @@ public class DatabaseConduit {
         // Implement transaction saving logic here
         UserRecord sender = userQuery(transaction.getSenderId());
         UserRecord recipient = userQuery(transaction.getRecipientId());
-        TransactionRecord transactionRecord = new TransactionRecord(sender, recipient, transaction.getAmount());
+        TransactionRecord transactionRecord = new TransactionRecord(sender, recipient, transaction.getAmount(), transaction.getIncentive());
         transactionRecordRepo.save(transactionRecord);
 
         sender.setBalance(sender.getBalance() - transaction.getAmount());
         save(sender);
-        recipient.setBalance(recipient.getBalance() + transaction.getAmount());
+        recipient.setBalance(recipient.getBalance() + transaction.getAmount() + transaction.getIncentive());
         save(recipient);
     }
 
